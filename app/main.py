@@ -98,16 +98,11 @@ def delete_post(id: int):
         """,
         (str(id),)
     )
-    try:
-        deleted_post = cursor.fetchone()
-        print(deleted_post)
-        conn.commit()
-    except:
-        deleted_post = None
-    finally:
-        if deleted_post == None:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                                detail="Unable to delete the specified post. id does not exist")
+    deleted_post = cursor.fetchone()
+    conn.commit()
+    if deleted_post == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="Unable to delete the specified post. id does not exist")
 
     return {"data": deleted_post}
 
@@ -130,15 +125,11 @@ def update_post(id: int, post: Post):
             str(id)
         )
     )
-    try:
-        updated_post = cursor.fetchone()
-        conn.commit()
-    except:
-        updated_post = None
-    finally:
-        if updated_post == None:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                                detail="Unable to update the specified post. id does not exist")
+    updated_post = cursor.fetchone()
+    conn.commit()
+    if updated_post == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="Unable to update the specified post. id does not exist")
 
     return {"data": updated_post}
 

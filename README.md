@@ -13,7 +13,6 @@ $ source <name>/bin/activate
 ```
 
 ### Dependencies
-
 For apt package manager
 ```sh
 $ chmod +x setup.sh
